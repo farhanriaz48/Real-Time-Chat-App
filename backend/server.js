@@ -6,6 +6,11 @@ const cors = require('cors');
 const app = express();
 app.use(cors());
 
+// Simple health-check / root route so GET / returns a response
+app.get('/', (req, res) => {
+  res.send('Backend is running ✅');
+});
+
 const server = http.createServer(app);
 
 const io = new Server(server, {
@@ -27,4 +32,6 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => console.log('User disconnected:', socket.id));
 });
 
-server.listen(5000, () => console.log('Server running on port 5000'));
+// Use Vercel / hosting provider port in production, fallback to 5000 locally
+const PORT = process.env.PORT || 5000;
+server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
