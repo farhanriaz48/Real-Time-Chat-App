@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
 import Message from './Message';
 
-const socket = io('http://localhost:5000');
+// Hardcoded backend URL for deployed app
+const socket = io('https://real-time-chat-app-9gyt.vercel.app');
 
 export default function ChatRoom({ user, room }) {
   const [message, setMessage] = useState('');
